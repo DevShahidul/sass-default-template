@@ -1,0 +1,345 @@
+
+// Mixin
+// Hero Banner style 
+@mixin heroBanner{
+    width: 100%; position: relative;
+    color: white;
+    .banner-content{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+}
+
+// Sass grid
+@mixin grid($cols, $mgn){
+    float: left;
+    margin-right: $mgn;
+    margin-bottom: $mgn;
+    width: ( (100% - (($cols - 1) * $mgn)) / $cols);
+    &:nth-child(#{$cols}n){
+        margin-right: 0;
+    }
+}
+
+// Clearfix
+@mixin clearFix{
+    &::before{
+        display: block;
+        content: "";
+        clear: both;
+    }
+}
+
+// Responsive Breakpoints
+@mixin breakpoint($point) {
+    @if $point == desktop-large {
+        @media (min-width: 1600) { @content ; }
+    }
+
+    @else if $point == desktop {
+        @media (min-width: 1440px) { @content ; }
+    }
+
+    @else if $point == desktop-small {
+        @media (min-width: 1360px) { @content ; }
+    }
+
+    @else if $point == laptop {
+        @media (min-width: 1280px) { @content ; }
+    }
+    @else if $point == tablet {
+        @media only screen and (min-width: 768px) and (max-width: 991px) { @content ; }
+    }
+    @else if $point == tablet-landscape {
+        @media only screen and (min-width: 992px) and (max-width: 1024px)  { @content ; }
+    }
+
+    @else if $point == mobile-landscape {
+        @media only screen and (min-width: 480px) and (max-width: 767px) { @content;}
+    }
+
+    @else if $point == large-mobile {
+        @media (max-width: 375px)  { @content ; }
+
+    }
+
+    @else if $point == mobile {
+        @media only screen and (min-width: 320px) and (max-width: 767px)  { @content ; }
+
+    }
+    @else if $point == sm-mobile {
+        @media (max-width: 320px)  { @content ; }
+
+    }
+    @else if $point == ex-sm-mobile {
+        @media (max-width: 240px)  { @content ; }
+
+    }
+ }
+
+
+ //Font face mixin
+ // =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+@mixin font($fontFamily: $defaultFont, $fontStyle: normal, $fontWeight: normal){
+    font-family: $fontFamily;
+    font-style: $fontStyle;
+    font-weight: $fontWeight;
+
+}
+
+// Usage:   @include transition(width, height 0.3s ease-in-out);
+// Output:  -webkit-transition(width 0.2s, height 0.3s ease-in-out);
+//          -moz-transition(width 0.2s, height 0.3s ease-in-out);
+//          transition(width 0.2s, height 0.3s ease-in-out);
+
+// Pass in any number of transitions
+@mixin transition($transitions...) {
+    $unfoldedTransitions: ();
+    @each $transition in $transitions {
+      $unfoldedTransitions: append($unfoldedTransitions, unfoldTransition($transition), comma);
+    }
+    
+    -webkit-transition: $unfoldedTransitions;
+    -moz-transition: $unfoldedTransitions;
+    transition: $unfoldedTransitions;
+  }
+  
+  @function unfoldTransition ($transition) {
+    // Default values
+    $property: all;
+    $duration: .2s;
+    $easing: null; // Browser default is ease, which is what we want
+    $delay: null; // Browser default is 0, which is what we want
+    $defaultProperties: ($property, $duration, $easing, $delay);
+  
+    // Grab transition properties if they exist
+    $unfoldedTransition: ();
+    @for $i from 1 through length($defaultProperties) {
+      $p: null;
+      @if $i <= length($transition) {
+        $p: nth($transition, $i)
+      } @else {
+        $p: nth($defaultProperties, $i)
+      }
+      $unfoldedTransition: append($unfoldedTransition, $p);
+    }
+  
+    @return $unfoldedTransition;
+  }
+
+//keyframe mixin
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+      @content;
+    }
+  
+    @-moz-keyframes #{$animation-name} {
+      @content;
+    }
+  
+    @-ms-keyframes #{$animation-name} {
+      @content;
+    }
+  
+    @-o-keyframes #{$animation-name} {
+      @content;
+    }
+  
+    @keyframes #{$animation-name} {
+      @content;
+    }
+}
+
+
+@mixin count($count: 1) {
+    -webkit-animation-iteration-count: $count;
+       -moz-animation-iteration-count: $count;
+        -ms-animation-iteration-count: $count;
+         -o-animation-iteration-count: $count;
+            animation-iteration-count: $count;
+}
+// @include count(1);
+  
+@mixin duration($duration: 1s) {
+    -webkit-animation-duration: $duration;
+       -moz-animation-duration: $duration;
+        -ms-animation-duration: $duration;
+         -o-animation-duration: $duration;
+            animation-duration: $duration;
+}
+// @include duration(1s);
+  
+@mixin delay($delay: .2s) {
+    -webkit-animation-delay: $delay;
+       -moz-animation-delay: $delay;
+        -ms-animation-delay: $delay;
+         -o-animation-delay: $delay;
+            animation-delay: $delay;
+}
+// @include delay(0s);
+  
+@mixin function($function: ease) {
+    -webkit-animation-timing-function: $function;
+       -moz-animation-timing-function: $function;
+        -ms-animation-timing-function: $function;
+         -o-animation-timing-function: $function;
+            animation-timing-function: $function;
+}
+// @include function(ease);
+  
+@mixin fill-mode($fill: both) {
+    -webkit-animation-fill-mode: $fill;
+       -moz-animation-fill-mode: $fill;
+        -ms-animation-fill-mode: $fill;
+         -o-animation-fill-mode: $fill;
+            animation-fill-mode: $fill;
+}
+// @include fill-mode(both);
+  
+@mixin visibility($visibility: hidden) {
+    -webkit-backface-visibility: $visibility;
+       -moz-backface-visibility: $visibility;
+        -ms-backface-visibility: $visibility;
+         -o-backface-visibility: $visibility;
+            backface-visibility: $visibility;
+}
+// @include visibility(hidden);
+  
+@mixin transform($property) {
+    -webkit-transform: $property;
+       -moz-transform: $property;
+        -ms-transform: $property;
+         -o-transform: $property;
+            transform: $property;
+}
+// @include transform(scale3d(.475, .475, .475) translate3d(-42px, 0, 0));
+
+  @mixin transform-origin($transform-origin: center center) {
+    -webkit-transform-origin: $transform-origin;
+       -moz-transform-origin: $transform-origin;
+        -ms-transform-origin: $transform-origin;
+         -o-transform-origin: $transform-origin;
+            transform-origin: $transform-origin;
+  }
+  // @include transform-origin(center bottom);
+  
+  @mixin transform-style($transform-style: flat) {
+    -webkit-transform-style: $transform-style;
+       -moz-transform-style: $transform-style;
+         -o-transform-style: $transform-style;
+            transform-style: $transform-style;
+  }
+  // @include transform-style( flat|preserve-3d|initial|inherit);
+  
+@mixin animation-name($animation-name) {
+    -webkit-animation-name: $animation-name;
+       -moz-animation-name: $animation-name;
+        -ms-animation-name: $animation-name;
+         -o-animation-name: $animation-name;
+            animation-name: $animation-name;
+}
+// @include animation-name(animateFromLeft);
+
+
+@mixin animateFromBottom($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(animateFromBottom);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}
+// @include animateFromBottom($delay: .2s, $count: 1, $duration: 1s, $function: ease-in-out, $visibility: visible);
+
+@mixin animateFromTop($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(animateFromTop);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}
+// @include animateFromTop($delay: .2s, $count: 1, $duration: 1s, $function: ease-in-out, $visibility: visible);
+
+@mixin animateFromRight($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(animateFromRight);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}
+// @include animateFromRight($delay: .2s, $count: 1, $duration: 1s, $function: ease-in-out, $visibility: visible);
+
+@mixin animateFromLeft($count: $countDefault, $duration: $durationDefault, $delay: $delayDefault, $function: $functionDefault, $fill: $fillDefault, $visibility: $visibilityDefault) {
+  @include animation-name(animateFromLeft);
+  @include count($count);
+  @include duration($duration);
+  @include delay($delay);
+  @include function($function);
+  @include fill-mode($fill);
+  @include visibility($visibility);
+}
+// @include animateFromLeft($delay: .2s, $count: 1, $duration: 1s, $function: ease-in-out, $visibility: visible);
+
+// Button mixing
+@mixin btnstyle($width: 248px, $height: 63px, $fontSize: 18px, $lineHeight: 60px, $color: $white, $background: $green) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    width: $width;
+    height: $height;
+    background-color: $background;
+    @include font; 
+}

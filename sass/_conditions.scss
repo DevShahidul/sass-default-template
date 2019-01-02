@@ -1,0 +1,21 @@
+@for $i from 1 through 6{
+    #{nth($headers, $i)}{
+        font-size: nth($hfz, $i);
+        line-height: nth($hlh, $i);
+        font-weight: normal; 
+        font-style: normal; 
+        font-family: 'Gotham-Medium', sans-serif;
+        @if $i == 2{
+            letter-spacing: -2px;
+        }
+        @else if $i == 3{
+            font-family: 'Gotham-Bold', sans-serif;
+        }
+        @else if $i == 6{
+            letter-spacing: 0;
+        }
+        @else{
+            letter-spacing: 1.1px;
+        }
+    }
+}

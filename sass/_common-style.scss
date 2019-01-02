@@ -1,0 +1,95 @@
+
+/* Common style */
+//conditions
+@import "conditions";
+
+body{
+  background: $white; 
+  -webkit-text-size-adjust: 100%; 
+  -moz-text-size-adjust:100%; 
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing:antialiased; 
+  overflow-x: hidden; 
+  overflow-y:auto; 
+  @include font;  
+  font-size: 18px; 
+  line-height: 24px; 
+  color: $gray;
+}
+
+*{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:border-box; 
+  box-sizing: border-box;
+}
+
+dfn,  address,  em{font-style: normal;}
+label,  input[type="submit"]{cursor: pointer;}
+button:focus{outline: none;}
+
+.input-wrap input[type="text"],.input-wrap input[type="email"],.input-wrap input[type="tel"],.input-wrap textarea{
+  @include clearFix; 
+  width: 100%; 
+  font-size: 16px; 
+  line-height: 22px; 
+  height: 56px;
+  padding: 10px;
+  border: 1px solid $lightGreen;
+  margin-top: 6px; 
+  text-transform: capitalize; 
+  font-size: 16px; 
+  line-height: 18px; 
+  @include font;
+}
+.input-wrap textarea{
+  height: 260px;
+}
+.input-wrap label{
+  @include clearFix; 
+  width: 100%; 
+  font-size: 16px; 
+  line-height: 18px; 
+  @include font; 
+  color: $gray;
+}
+.submit-wrap input[type="submit"]{
+  width: 150px;border: 0; 
+  border-radius: 5px; 
+  text-align: center; 
+  height: 65px; 
+  background:$green; 
+  font-size-adjust: 20px;
+  line-height: 60px; 
+  text-transform: uppercase; 
+  color: $white;
+  @include font;  
+  @include transition(all .4s ease-in-out);
+}
+.submit-wrap input[type="submit"]:hover{
+  background-color: $green-bg-hover;
+}
+
+.main-wrap{
+  @include clearFix;
+  width: 100%;
+}
+
+.container{
+    max-width: 1340px; padding: 0 50px; clear: both; 
+    @include clearFix;
+    @include breakpoint(mobile){
+      padding: 0 20px;
+    };
+    @include breakpoint(sm-mobile){
+      padding: 0 10px;
+    }
+    @include breakpoint(ex-sm-mobile){
+      padding: 0 5px;
+    }
+}
+
+// buttonStyle;
+.btn{
+  @include btnstyle;
+}
+/* //End common style */

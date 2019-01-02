@@ -1,0 +1,44 @@
+// Reset
+@import "reset";
+
+// Variables
+@import "variable";
+
+// Mixin
+@import "mixin";
+// @include breakpoint(mobile: 320px to 767px, ex-sm-mobile: 240px, sm-mobile: 320px, large-mobile: 375px, mobile-landscape: 480px to 767px, tablet-landscape: 992px to 1024px, tablet: 768px to 991px, laptop: 1280px, desktop-small: 1360px, desktop: 1440px, desktop-large: 1600px){style here} set your neded media.
+// @include grid($col, $margin);
+
+// @include transform(scale3d(.475, .475, .475) translate3d(-42px, 0, 0));
+// @include transform-origin(center bottom);
+// @include count(1);
+// @include duration(1s);
+// @include delay(0s);
+// @include function(ease);
+// @include fill-mode(both);
+// @include visibility(hidden);
+// @include transform-style( flat|preserve-3d|initial|inherit);
+// @include animation-name(animateFromLeft);
+// @include btnstyle($width: 248px, $height: 63px, $fontSize: 18px, $lineHeight: 60px, $color: $white, $background: $green);
+// @include animateFromBottom($delay: .2s, $count: 1, $duration: 1s, $function: ease-in-out, $visibility: visible);
+
+// Usage:   @include transition(width, height 0.3s ease-in-out);
+// Output:  -webkit-transition(width 0.2s, height 0.3s ease-in-out);
+//          -moz-transition(width 0.2s, height 0.3s ease-in-out);
+//          transition(width 0.2s, height 0.3s ease-in-out);
+
+
+/* Beginning keyframe animations */
+// Keyframes
+@import "keyframes"; 
+// @include animation('animation-name 5s ease-in-out');
+
+//Font face 
+@include font-face("CircularStd", "../fonts/CircularStd-Bold");
+
+// include common style
+@import "common-style";
+
+h1{
+    animation: animateFromRight 1s ease-in-out;
+}

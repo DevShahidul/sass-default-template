@@ -1,0 +1,60 @@
+//Animate from left keyframe
+@include keyframes(animateFromLeft) {
+    0%{
+        opacity: 0; 
+        @include transform(translateX(-100px));
+    }
+    80%{
+        @include transform(translateX(10px));
+    }
+    100%{
+        opacity: 1; 
+        @include transform(translateX(0px));
+    }
+}
+  
+//Animate from right keyframe
+@include keyframes(animateFromRight) {
+    0%{
+        opacity: 0; 
+        @include transform(translateX(100px));
+    }
+    80%{
+        @include transform(translateX(-10px));
+    }
+    100%{
+        opacity: 1; 
+        @include transform(translateX(0px));
+    }
+}
+ 
+//Animate from bottom keyframe
+@include keyframes(animateFromBottom) {
+    0%{
+        opacity: 0; 
+        @include transform(translateY(100px));
+    }
+    80%{
+        @include transform(translateY(-10px));
+    }
+    100%{
+        opacity: 1; 
+        @include transform(translateY(0px));
+        ;
+    }
+}
+  
+//Animate from top keyframe
+@include keyframes(animateFromTop) {
+    0%{
+        opacity: 0; 
+        @include transform(translateY(-100px));
+    }
+    80%{
+        @include transform(translateY(10px));
+    }
+    100%{
+        opacity: 1; 
+        @include transform(translateY(0px));
+    }
+}

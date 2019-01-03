@@ -514,10 +514,10 @@ input[type="search"]::-webkit-search-results-decoration {
     -ms-transform: translateY(0px);
     -o-transform: translateY(0px);
     transform: translateY(0px); } }
+/* Common style */
 @font-face {
   font-family: "CircularStd";
   src: url("../fonts/CircularStd-Bold.eot?") format("eot"), url("../fonts/CircularStd-Bold.woff2") format("woff2"), url("../fonts/CircularStd-Bold.woff") format("woff"), url("../fonts/CircularStd-Bold.ttf") format("truetype"), url("../fonts/CircularStd-Bold.svg#CircularStd") format("svg"); }
-/* Common style */
 h1 {
   font-size: 46px;
   line-height: 55px;
@@ -683,12 +683,68 @@ button:focus {
   width: 248px;
   height: 63px;
   background-color: #00a652;
+  text-align: center;
   font-family: "CircularStd", sans-serif;
   font-style: normal;
-  font-weight: normal; }
+  font-weight: normal;
+  -webkit-transition: all 0.3s ease-in;
+  -moz-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in; }
+  .btn::before {
+    display: block;
+    content: "";
+    clear: both; }
+  .btn:hover {
+    background-color: #12b965; }
+
+/* Phone nav style */
+.phone-nav {
+  width: 23px;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  display: none; }
+  .phone-nav div {
+    position: relative;
+    width: 100%;
+    height: 3px;
+    background: #000000;
+    margin-top: 7px; }
+    .phone-nav div::after, .phone-nav div::before {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #000000;
+      margin-top: -7px;
+      content: "";
+      -webkit-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+    .phone-nav div::after {
+      margin-top: 7px; }
+  .phone-nav.expanded div {
+    background-color: transparent; }
+  .phone-nav.expanded div::after, .phone-nav.expanded div::before {
+    margin-top: 0; }
+  .phone-nav.expanded div::after {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+  .phone-nav.expanded div::before {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg); }
+  @media only screen and (min-width: 320px) and (max-width: 767px) {
+    .phone-nav {
+      display: block; } }
 
 /* //End common style */
-h1 {
+.hero-inner h1 {
   animation: animateFromRight 1s ease-in-out; }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=main.css.map */

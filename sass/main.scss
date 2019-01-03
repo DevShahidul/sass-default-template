@@ -33,12 +33,11 @@
 @import "keyframes"; 
 // @include animation('animation-name 5s ease-in-out');
 
-//Font face 
-@include font-face("CircularStd", "../fonts/CircularStd-Bold");
-
 // include common style
 @import "common-style";
-
-h1{
-    animation: animateFromRight 1s ease-in-out;
+.hero-inner{
+    h1{
+        animation: animateFromRight 1s ease-in-out;
+    }    
 }
+

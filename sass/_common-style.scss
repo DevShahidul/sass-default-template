@@ -1,5 +1,9 @@
 
 /* Common style */
+
+//Font face 
+@include font-face("CircularStd", "../fonts/CircularStd-Bold");
+
 //conditions
 @import "conditions";
 
@@ -36,7 +40,7 @@ button:focus{outline: none;}
   padding: 10px;
   border: 1px solid $lightGreen;
   margin-top: 6px; 
-  text-transform: capitalize; 
+  text-transform: capitalize;
   font-size: 16px; 
   line-height: 18px; 
   @include font;
@@ -90,6 +94,62 @@ button:focus{outline: none;}
 
 // buttonStyle;
 .btn{
-  @include btnstyle;
+    @include btnstyle;
+    &:hover{
+        background-color: $green-bg-hover;
+    }
 }
+
+/* Phone nav style */
+.phone-nav{
+    width: 23px;
+    position: absolute; 
+    right: 20px;
+    top: 15px;
+    display: none;
+    div{
+        position: relative;
+        width: 100%; 
+        height: 3px;
+        background: $black;
+        margin-top: 7px;
+        &::after,
+        &::before{
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: $black;
+            margin-top: -7px;
+            content: "";
+            @include transition(all .3s ease-in-out);
+        }
+        &::after{
+            margin-top: 7px;
+        }
+    }
+    &.expanded{
+        div{
+            background-color: transparent;
+        }
+    }
+    &.expanded{
+        div{
+            &::after, 
+            &::before{
+                margin-top: 0;
+            }
+            &::after{
+                @include transform( rotate(-45deg) );
+            }
+            &::before{
+                @include transform( rotate(45deg) );
+            }
+        }
+    }
+    @include breakpoint(mobile){
+        display: block;
+    }
+}
+
 /* //End common style */

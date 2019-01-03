@@ -341,5 +341,8 @@
     width: $width;
     height: $height;
     background-color: $background;
+    text-align: center;
     @include font; 
+    @include transition(all .3s ease-in);
+    @include clearFix;
 }
